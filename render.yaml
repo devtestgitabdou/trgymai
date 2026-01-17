@@ -1,13 +1,17 @@
 services:
   - type: web
-    name: gym-form-detector-api
+    name: exercise-form-corrector
     runtime: python
-    region: oregon  # or frankfurt, singapore, etc.
+    region: oregon
     buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn main:app --host 0.0.0.0 --port 10000
+    startCommand: uvicorn main:app --host 0.0.0.0 --port=10000
     envVars:
       - key: PYTHON_VERSION
         value: 3.9.0
     plan: free
     healthCheckPath: /health
     autoDeploy: true
+    disk:
+      name: models
+      mountPath: /opt/render/project/src
+      sizeGB: 1
